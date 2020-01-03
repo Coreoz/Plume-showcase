@@ -9,12 +9,15 @@ import org.glassfish.jersey.process.internal.RequestScoped;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import com.coreoz.plume.admin.jersey.feature.AdminSecurityFeature;
+import com.coreoz.plume.admin.jersey.feature.RestrictToAdmin;
 import com.coreoz.plume.admin.websession.WebSessionAdmin;
 import com.coreoz.plume.admin.websession.WebSessionPermission;
 import com.coreoz.plume.admin.websession.jersey.WebSessionAdminFactory;
 import com.coreoz.plume.jersey.errors.WsJacksonJsonProvider;
 import com.coreoz.plume.jersey.errors.WsResultExceptionMapper;
 import com.coreoz.plume.jersey.java8.TimeParamProvider;
+import com.coreoz.plume.jersey.security.permission.PublicApi;
+import com.coreoz.plume.jersey.security.permission.RequireExplicitAccessControlFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -45,6 +48,8 @@ public class JerseyConfigProvider implements Provider<ResourceConfig> {
 		// filters configuration
 		// handle errors and exceptions
 		config.register(WsResultExceptionMapper.class);
+		// require explicit access control on API
+		config.register(RequireExplicitAccessControlFeature.accessControlAnnotations(PublicApi.class, RestrictToAdmin.class));
 		// admin web-services protection with the permission system
 		config.register(AdminSecurityFeature.class);
 		// to debug web-service requests

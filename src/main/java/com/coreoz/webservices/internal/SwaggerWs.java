@@ -10,9 +10,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import com.coreoz.plume.jersey.security.basic.BasicAuthenticator;
-import com.fasterxml.jackson.core.JsonProcessingException;
-
+import com.coreoz.plume.jersey.security.permission.PublicApi;
 import com.coreoz.services.configuration.ConfigurationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.models.Swagger;
@@ -20,6 +20,7 @@ import io.swagger.util.Json;
 
 @Path("/swagger")
 @Singleton
+@PublicApi
 public class SwaggerWs {
 
 	private final String swaggerDefinition;
@@ -31,7 +32,7 @@ public class SwaggerWs {
 		beanConfig.setResourcePackage("com.coreoz.webservices.api");
 		beanConfig.setBasePath("/api");
 		beanConfig.setTitle("API plume-demo-admin");
-		// this is not only a setter, it also starts the Swagger classes analyzing process 
+		// this is not only a setter, it also starts the Swagger classes analyzing process
 		beanConfig.setScan(true);
 
 		// the swagger object can be changed to add security definition

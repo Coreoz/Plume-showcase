@@ -9,22 +9,24 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.coreoz.plume.jersey.security.permission.PublicApi;
+import com.coreoz.services.configuration.ConfigurationService;
+import com.coreoz.webservices.api.data.Test;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-
-import com.coreoz.services.configuration.ConfigurationService;
-import com.coreoz.webservices.api.data.Test;
 
 @Path("/example")
 @Api("Manage exemple web-services")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@PublicApi
 @Singleton
 public class ExampleWs {
 
 	private final ConfigurationService configurationService;
-	
+
 	@Inject
 	public ExampleWs(ConfigurationService configurationService) {
 		this.configurationService = configurationService;
@@ -36,5 +38,5 @@ public class ExampleWs {
 	public Test test(@ApiParam(required = true) @PathParam("name") String name) {
 		return new Test("hello " + name + "\n" + configurationService.hello());
 	}
-	
+
 }
