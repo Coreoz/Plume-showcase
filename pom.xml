@@ -15,7 +15,7 @@
 		<maven.compiler.source>12</maven.compiler.source>
 		<maven.compiler.target>12</maven.compiler.target>
 
-		<plume-dependencies.version>2.0.0-beta2</plume-dependencies.version>
+		<plume-dependencies.version>2.0.0-SNAPSHOT</plume-dependencies.version>
 	</properties>
 
 	<build>
@@ -170,10 +170,19 @@
 			<scope>provided</scope>
 		</dependency>
 		
+		<!-- plume admin -->
 		<dependency>
 			<groupId>com.coreoz</groupId>
 			<artifactId>plume-admin-ws</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>com.coreoz</groupId>
+            <artifactId>plume-admin-ws-system</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.coreoz</groupId>
+            <artifactId>plume-admin-api-log</artifactId>
+        </dependency>
 
 		<!-- unit testing -->
 		<dependency>
