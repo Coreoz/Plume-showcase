@@ -55,6 +55,7 @@ export class HttpClient {
       headers: this.headersValue,
       method: this.methodvalue,
       body: this.bodyValue,
+      credentials: 'same-origin',
     })
       .catch(rawResponseCatcher)
       .then(handleError);
