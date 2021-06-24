@@ -5,7 +5,7 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import com.coreoz.plume.admin.services.permission.ApiLogAdminPermissions;
+import com.coreoz.plume.admin.services.permission.LogApiAdminPermissions;
 import com.coreoz.plume.admin.services.permission.SystemAdminPermissions;
 import com.coreoz.plume.admin.services.permissions.AdminPermissionService;
 import com.coreoz.plume.admin.services.permissions.AdminPermissions;
@@ -21,7 +21,7 @@ public class ProjectAdminPermissionService implements AdminPermissionService {
 		this.permissionsAvailable = ImmutableSet.of(
 			AdminPermissions.MANAGE_USERS,
 			AdminPermissions.MANAGE_ROLES,
-			ApiLogAdminPermissions.MANAGE_API_LOGS,
+			LogApiAdminPermissions.MANAGE_API_LOGS,
 			SystemAdminPermissions.MANAGE_SYSTEM
 		);
 	}
