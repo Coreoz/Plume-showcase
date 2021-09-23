@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -12,10 +13,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>16</maven.compiler.source>
-		<maven.compiler.target>16</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 
-		<plume-dependencies.version>2.1.1</plume-dependencies.version>
+		<plume-dependencies.version>3.0.0</plume-dependencies.version>
 	</properties>
 
 	<build>
@@ -53,7 +54,7 @@
 			<plugin>
 				<groupId>com.google.code.play2-maven-plugin</groupId>
 				<artifactId>play2-maven-plugin</artifactId>
-				<version>1.0.0-beta6</version>
+				<version>1.0.0-rc5</version>
 				<executions>
 					<execution>
 						<goals>
@@ -143,21 +144,18 @@
 			<groupId>javax.activation</groupId>
 			<artifactId>javax.activation-api</artifactId>
 		</dependency>
+		<!-- to cool down eclipse  -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- swagger -->
 		<dependency>
-			<groupId>io.swagger</groupId>
-			<artifactId>swagger-jaxrs</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>joda-time</artifactId>
-					<groupId>joda-time</groupId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.ws.rs</groupId>
-					<artifactId>jsr311-api</artifactId>
-				</exclusion>
-			</exclusions>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-jaxrs2</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -169,20 +167,20 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- plume admin -->
 		<dependency>
 			<groupId>com.coreoz</groupId>
 			<artifactId>plume-admin-ws</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>com.coreoz</groupId>
-            <artifactId>plume-admin-ws-system</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.coreoz</groupId>
-            <artifactId>plume-admin-api-log</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>com.coreoz</groupId>
+			<artifactId>plume-admin-ws-system</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.coreoz</groupId>
+			<artifactId>plume-admin-api-log</artifactId>
+		</dependency>
 
 		<!-- unit testing -->
 		<dependency>

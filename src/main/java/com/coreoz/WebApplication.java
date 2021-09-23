@@ -1,7 +1,5 @@
 package com.coreoz;
 
-import java.io.IOException;
-
 import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,25 +19,33 @@ public class WebApplication {
 
 	private static final Logger logger = LoggerFactory.getLogger(WebApplication.class);
 
-	public static void main(String[] args) throws IOException {
-		long startTimestamp = System.currentTimeMillis();
+	public static void main(String[] args) {
+		try {
+			long startTimestamp = System.currentTimeMillis();
 
-		// initialize all application objects with Guice
-		Injector injector = Guice.createInjector(Stage.PRODUCTION, new ApplicationModule());
+			// initialize all application objects with Guice
+			Injector injector = Guice.createInjector(Stage.PRODUCTION, new ApplicationModule());
 
-		ResourceConfig jerseyResourceConfig = injector.getInstance(ResourceConfig.class);
-		// enable Jersey to create objects through Guice Injector instance
-		jerseyResourceConfig.register(new JerseyGuiceFeature(injector));
-		// starts the server
-		GrizzlySetup.start(
-			jerseyResourceConfig,
-			System.getProperty("http.port"),
-			System.getProperty("http.address")
-		);
+			ResourceConfig jerseyResourceConfig = injector.getInstance(ResourceConfig.class);
+			// enable Jersey to create objects through Guice Injector instance
+			jerseyResourceConfig.register(new JerseyGuiceFeature(injector));
+			// starts the server
+			GrizzlySetup.start(
+				jerseyResourceConfig,
+				System.getProperty("http.port"),
+				System.getProperty("http.address")
+			);
 
-		injector.getInstance(InitializeDatabase.class).setup();
+			injector.getInstance(InitializeDatabase.class).setup();
 
-		logger.info("Server started in {} ms", System.currentTimeMillis() - startTimestamp);
+			logger.info("Server started in {} ms", System.currentTimeMillis() - startTimestamp);
+		} catch (Throwable e) {
+			logger.error("Failed to start the server", e);
+			// This line is important, because during initialization some libraries change the main thread type
+			// to daemon, which mean that even if the project is completely down, the JVM is not stopped.
+			// Stopping the JVM is important to enable production supervision tools to detect and restart the project.
+			System.exit(1);
+		}
 	}
 
 }
