@@ -12,11 +12,11 @@ create table plm_log_api
 
 create table plm_log_header
 (
-  id         bigint       not null primary key,
-  id_log_api bigint       not null,
-  type       varchar(255) not null,
-  name      varchar(255) not null,
-  value      TEXT not null,
-  constraint plm_log_header_plm_log_api_id_fk
-    foreign key (id_log_api) references plm_log_api (id)
+  `id`         bigint       not null primary key,
+  `id_log_api` bigint       not null,
+  `type`       varchar(255) not null,
+  `name`      varchar(255) not null,
+  `value`      TEXT not null,
+  CONSTRAINT `plm_log_header_plm_log_api_id_fk` FOREIGN KEY (`id_log_api`)
+  REFERENCES `plm_log_api` (`id`)
 );
