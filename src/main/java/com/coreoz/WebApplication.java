@@ -45,7 +45,7 @@ public class WebApplication {
 			);
 
 			// Add a shutdown hook to execute some code when the JVM receive a kill signal before it stops
-			addShutDownListerner(httpServer, injector.getInstance(Scheduler.class));
+			addShutDownListener(httpServer, injector.getInstance(Scheduler.class));
 
 			injector.getInstance(InitializeDatabase.class).setup();
 
@@ -60,7 +60,7 @@ public class WebApplication {
 	}
 
 
-	private static void addShutDownListerner(HttpServer httpServer, Scheduler scheduler) {
+	private static void addShutDownListener(HttpServer httpServer, Scheduler scheduler) {
 		Runtime.getRuntime().addShutdownHook(new Thread(
 			() -> {
 				logger.info("Stopping signal received, shutting down server and scheduler...");
