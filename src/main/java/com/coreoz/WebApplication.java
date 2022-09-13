@@ -3,6 +3,7 @@ package com.coreoz;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import com.coreoz.plume.admin.services.scheduler.LogApiScheduledJobs;
 import org.glassfish.grizzly.GrizzlyFuture;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -34,6 +35,14 @@ public class WebApplication {
 			// initialize all application objects with Guice
 			Injector injector = Guice.createInjector(Stage.PRODUCTION, new ApplicationModule());
 
+			// initialize database
+			injector.getInstance(InitializeDatabase.class).setup();
+
+			// schedule jobs
+			// configure logApi
+			injector.getInstance(LogApiScheduledJobs.class).scheduleJobs();
+
+			// configuration Jersey for API exposition
 			ResourceConfig jerseyResourceConfig = injector.getInstance(ResourceConfig.class);
 			// enable Jersey to create objects through Guice Injector instance
 			jerseyResourceConfig.register(new JerseyGuiceFeature(injector));
@@ -46,8 +55,6 @@ public class WebApplication {
 
 			// Add a shutdown hook to execute some code when the JVM receive a kill signal before it stops
 			addShutDownListener(httpServer, injector.getInstance(Scheduler.class));
-
-			injector.getInstance(InitializeDatabase.class).setup();
 
 			logger.info("Server started in {} ms", System.currentTimeMillis() - startTimestamp);
 		} catch (Throwable e) {

@@ -1,5 +1,6 @@
 package com.coreoz.guice;
 
+import com.coreoz.plume.scheduler.guice.GuiceSchedulerModule;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import com.coreoz.jersey.JerseyConfigProvider;
@@ -30,6 +31,8 @@ public class ApplicationModule extends AbstractModule {
 		bind(WebSessionSigner.class).toProvider(JwtSessionSignerProvider.class);
 		bind(JwtSessionSigner.class).toProvider(JwtSessionSignerProvider.class);
 		bind(AdminPermissionService.class).to(ProjectAdminPermissionService.class);
+		// API log configuration
+		install(new GuiceSchedulerModule());
 
 		// database setup for the demo
 		install(new DataSourceModule());
