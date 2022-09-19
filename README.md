@@ -1,6 +1,8 @@
 Plume showcase
 ==============
 
+**⚠️ Ce projet est maintenant sur Github : https://github.com/Coreoz/Plume-showcase ⚠️**
+
 This project enables to test quickly the [Plume Framework](https://github.com/Coreoz/Plume) ecosystem. It contains:
 - An embedded database
 - An integration with [Plume Admin](https://github.com/Coreoz/Plume-admin)
