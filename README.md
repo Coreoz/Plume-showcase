@@ -1,11 +1,11 @@
-Plume demo
-==========
+Plume showcase
+==============
 
 This project enables to test quickly the [Plume Framework](https://github.com/Coreoz/Plume) ecosystem. It contains:
 - An embedded database
 - An integration with [Plume Admin](https://github.com/Coreoz/Plume-admin)
 
-A [React](https://github.com/facebook/react/) administration frontend using this demo project can be setup quickly with [Create Plume React Project](https://github.com/Coreoz/create-plume-react-project).
+A [React](https://github.com/facebook/react/) administration frontend using this showcase project can be setup quickly with [Create Plume React Project](https://github.com/Coreoz/create-plume-react-project).
 
 Configuring your IDE
 --------------------
@@ -22,7 +22,7 @@ If you have any doubt, check out the [configuration documentation](https://githu
 
 Administration area
 -------------------
-The [React frontend](#plume-demo) can be started using `yarn start` and opening <http://localhost:3000/>.
+The [React frontend](#plume-showcase) can be started using `yarn start` and opening <http://localhost:3000/>.
 
 In the login screen, the credentials are:
 - login: admin
