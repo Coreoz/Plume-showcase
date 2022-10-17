@@ -7,6 +7,8 @@ import java.util.Locale;
 import com.coreoz.plume.conf.guice.GuiceConfModule;
 import com.coreoz.plume.db.querydsl.generation.IdBeanSerializer;
 import com.coreoz.plume.db.transaction.TransactionManager;
+import com.coreoz.plume.file.db.beans.FileDataQueryDsl;
+import com.coreoz.plume.file.db.beans.FileMetadataQuerydsl;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.querydsl.codegen.EntityType;
@@ -47,9 +49,12 @@ public class QuerydslGenerator {
 			@Override
 			public String getClassName(String tableName) {
 				// uncomment if you are using plume file
-//				if("plm_file".equalsIgnoreCase(tableName)) {
-//					return FileEntityQuerydsl.class.getName();
-//				}
+				if("plm_file_data".equalsIgnoreCase(tableName)) {
+					return FileDataQueryDsl.class.getName();
+				}
+				if("plm_file".equalsIgnoreCase(tableName)) {
+					return FileMetadataQuerydsl.class.getName();
+				}
 				return super.getClassName(tableName.substring(TABLES_PREFIX.length()));
 			}
 
