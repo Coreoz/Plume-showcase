@@ -1,6 +1,6 @@
 package com.coreoz.webservices.api.file;
 
-import com.coreoz.plume.file.services.FileService;
+import com.coreoz.plume.file.FileUploadWebJerseyService;
 import com.coreoz.plume.jersey.errors.Validators;
 import com.coreoz.plume.jersey.security.permission.PublicApi;
 import com.coreoz.services.file.ShowcaseFileType;
@@ -28,11 +28,11 @@ import java.io.InputStream;
 @PublicApi
 @Singleton
 public class FileUploadWs {
-    private final FileService fileService;
+    private final FileUploadWebJerseyService fileUploadWebJerseyService;
 
     @Inject
-    public FileUploadWs(FileService fileService) {
-        this.fileService = fileService;
+    public FileUploadWs(FileUploadWebJerseyService fileService) {
+        this.fileUploadWebJerseyService = fileService;
     }
 
     @POST
@@ -40,19 +40,15 @@ public class FileUploadWs {
     public Response upload(
         @Context ContainerRequestContext context,
         @FormDataParam("file") FormDataBodyPart fileMetadata,
-        @FormDataParam("file") InputStream fileData,
-        @FormDataParam("fileType") ShowcaseFileType fileType
+        @FormDataParam("file") InputStream fileData
     ) {
-        Validators.checkRequired("fileType", fileType);
         Validators.checkRequired("fileMetadata", fileMetadata);
         Validators.checkRequired("file", fileData);
         return Response.ok(
-                this.fileService.add(
-                    fileType,
+                this.fileUploadWebJerseyService.add(
+                    ShowcaseFileType.ENUM,
                     fileData,
-                    fileMetadata.getContentDisposition().getFileName(),
-                    fileMetadata.getMediaType().toString(),
-                    fileMetadata.getFormDataContentDisposition().getSize()
+                    fileMetadata
                 )
             )
             .build();
