@@ -3,13 +3,15 @@ CREATE TABLE `PLM_FILE`
     `unique_name`        VARCHAR(255)   NOT NULL,
     `file_type`          VARCHAR(255)   NOT NULL,
     `mime_type`          VARCHAR(255)   NOT NULL,
-    `file_size`          DECIMAL(19, 0) NOT NULL,
+    `file_size`          DECIMAL(19, 0) NULL,
     `file_original_name` VARCHAR(255)   NULL,
     `file_extension`     VARCHAR(5)     NULL,
+    `checksum`           VARCHAR(255)   NULL,
     `creation_date`      TIMESTAMP      NOT NULL,
     PRIMARY KEY (`unique_name`)
-)
-    DEFAULT CHARSET = utf8;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
 
 CREATE TABLE `PLM_FILE_DATA`
 (

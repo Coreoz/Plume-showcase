@@ -1,9 +1,5 @@
 package com.coreoz.guice;
 
-import com.coreoz.plume.file.guice.GuiceFileWebserviceModule;
-import com.coreoz.plume.scheduler.guice.GuiceSchedulerModule;
-import org.glassfish.jersey.server.ResourceConfig;
-
 import com.coreoz.jersey.JerseyConfigProvider;
 import com.coreoz.plume.admin.guice.GuiceAdminWsModule;
 import com.coreoz.plume.admin.services.permissions.AdminPermissionService;
@@ -18,9 +14,11 @@ import com.coreoz.plume.file.guice.GuiceFileMetadataDatabaseModule;
 import com.coreoz.plume.file.guice.GuiceFileModule;
 import com.coreoz.plume.file.guice.GuiceFileStorageDatabaseModule;
 import com.coreoz.plume.jersey.guice.GuiceJacksonModule;
+import com.coreoz.plume.scheduler.guice.GuiceSchedulerModule;
 import com.coreoz.services.file.ShowCaseFileTypesProvider;
 import com.coreoz.webservices.admin.permissions.ProjectAdminPermissionService;
 import com.google.inject.AbstractModule;
+import org.glassfish.jersey.server.ResourceConfig;
 
 /**
  * Group the Guice modules to install in the application
@@ -43,7 +41,6 @@ public class ApplicationModule extends AbstractModule {
 		// Plume File
 		install(new GuiceFileMetadataDatabaseModule());
 		install(new GuiceFileStorageDatabaseModule());
-		install(new GuiceFileWebserviceModule());
 		install(new GuiceFileModule());
 		bind(FileTypesProvider.class).to(ShowCaseFileTypesProvider.class);
 
