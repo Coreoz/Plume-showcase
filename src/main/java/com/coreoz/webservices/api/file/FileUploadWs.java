@@ -1,6 +1,9 @@
 package com.coreoz.webservices.api.file;
 
 import com.coreoz.plume.file.FileUploadWebJerseyService;
+import com.coreoz.plume.file.services.mimetype.FileMimeTypeDetector;
+import com.coreoz.plume.file.validator.FileUploadData;
+import com.coreoz.plume.file.validator.FileUploadValidator;
 import com.coreoz.plume.jersey.errors.Validators;
 import com.coreoz.plume.jersey.security.permission.PublicApi;
 import com.coreoz.services.file.ShowcaseFileType;
@@ -20,6 +23,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.InputStream;
+import java.util.Set;
 
 @Path("/admin/files")
 @Tag(name = "Files", description = "Upload files")
@@ -29,10 +33,12 @@ import java.io.InputStream;
 @Singleton
 public class FileUploadWs {
     private final FileUploadWebJerseyService fileUploadWebJerseyService;
+    private final FileMimeTypeDetector fileMimeTypeDetector;
 
     @Inject
-    public FileUploadWs(FileUploadWebJerseyService fileService) {
+    public FileUploadWs(FileUploadWebJerseyService fileService, FileMimeTypeDetector fileMimeTypeDetector) {
         this.fileUploadWebJerseyService = fileService;
+        this.fileMimeTypeDetector = fileMimeTypeDetector;
     }
 
     @POST
@@ -44,11 +50,19 @@ public class FileUploadWs {
     ) {
         Validators.checkRequired("fileMetadata", fileMetadata);
         Validators.checkRequired("file", fileData);
+        FileUploadData fileUploadMetadata = FileUploadValidator.from(fileMetadata, fileData, this.fileMimeTypeDetector)
+            .fileMaxSize(2_000_000)
+            .fileNameAllowEmpty()
+            .fileNameMaxLength(255)
+            .fileExtensionAllowEmpty()
+            .fileExtensions(Set.of("hprof"))
+            /*.fileTypeNotEmpty()
+            .mimeTypes(Set.of("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel"))*/
+            .finish();
         return Response.ok(
                 this.fileUploadWebJerseyService.add(
                     ShowcaseFileType.ENUM,
-                    fileData,
-                    fileMetadata
+                    fileUploadMetadata
                 )
             )
             .build();

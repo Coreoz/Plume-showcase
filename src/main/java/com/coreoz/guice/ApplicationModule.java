@@ -10,7 +10,7 @@ import com.coreoz.plume.conf.guice.GuiceConfModule;
 import com.coreoz.plume.db.guice.DataSourceModule;
 import com.coreoz.plume.db.querydsl.guice.GuiceQuerydslModule;
 import com.coreoz.plume.file.filetype.FileTypesProvider;
-import com.coreoz.plume.file.guice.GuiceFileCacheDownloadModule;
+import com.coreoz.plume.file.guice.GuiceFileDownloadModule;
 import com.coreoz.plume.file.guice.GuiceFileMetadataDatabaseModule;
 import com.coreoz.plume.file.guice.GuiceFileModule;
 import com.coreoz.plume.file.guice.GuiceFileStorageDatabaseModule;
@@ -42,7 +42,7 @@ public class ApplicationModule extends AbstractModule {
 		// Plume File
 		install(new GuiceFileMetadataDatabaseModule());
 		install(new GuiceFileStorageDatabaseModule());
-		install(new GuiceFileCacheDownloadModule());
+		install(new GuiceFileDownloadModule());
 		install(new GuiceFileModule());
 		bind(FileTypesProvider.class).to(ShowCaseFileTypesProvider.class);
 
