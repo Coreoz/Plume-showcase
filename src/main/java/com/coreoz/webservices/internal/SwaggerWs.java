@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.swagger.v3.core.util.Yaml;
 import io.swagger.v3.jaxrs2.integration.JaxrsOpenApiContextBuilder;
+import io.swagger.v3.oas.integration.OpenApiConfigurationException;
 import io.swagger.v3.oas.integration.SwaggerConfiguration;
 import io.swagger.v3.oas.integration.api.OpenApiContext;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -34,8 +35,7 @@ public class SwaggerWs {
 	private final BasicAuthenticator<String> basicAuthenticator;
 
 	@Inject
-	@SneakyThrows
-	public SwaggerWs(ConfigurationService configurationService) {
+	public SwaggerWs(ConfigurationService configurationService) throws OpenApiConfigurationException {
 		SwaggerConfiguration openApiConfig = new SwaggerConfiguration()
 			.resourcePackages(Set.of("com.coreoz.webservices.api"))
 			.sortOutput(true)
