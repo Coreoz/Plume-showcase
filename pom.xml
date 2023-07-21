@@ -16,7 +16,7 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 
-		<plume-dependencies.version>4.1.1</plume-dependencies.version>
+		<plume-dependencies.version>4.3.1</plume-dependencies.version>
 	</properties>
 
 	<build>
@@ -121,6 +121,10 @@
 		<dependency>
 			<groupId>com.coreoz</groupId>
 			<artifactId>plume-web-jersey</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.coreoz</groupId>
+			<artifactId>plume-web-jersey-monitoring</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>

@@ -42,7 +42,7 @@ public class SwaggerWs {
 			.openAPI(new OpenAPI().servers(List.of(
 				new Server()
 					.url("/api")
-					.description("API vel-b2c-backend")
+					.description("API plume-showcase")
 			)));
 
 		OpenApiContext context = new JaxrsOpenApiContextBuilder<>()
@@ -61,7 +61,7 @@ public class SwaggerWs {
 		this.basicAuthenticator = BasicAuthenticator.fromSingleCredentials(
 			configurationService.swaggerAccessUsername(),
 			configurationService.swaggerAccessPassword(),
-			"API plume-demo-admin"
+			"API plume-showcase"
 		);
 	}
 

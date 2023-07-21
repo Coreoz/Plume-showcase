@@ -35,3 +35,12 @@ This documentation is protected by credentials that should be configured in the 
 To access this documentation, start the project
 and go to <http://localhost:8080/>.
 As a reminder, the default Swagger credentials are: `plume//rocks`.
+
+Monitoring
+----------
+[Application monitoring](https://github.com/Coreoz/Plume/tree/master/plume-web-jersey-monitoring) is available through the API:
+- <http://localhost:8080/monitoring/info>
+- <http://localhost:8080/monitoring/health>
+- <http://localhost:8080/monitoring/metrics>
+
+There is a basic authentication for security, the credentials are: `plume//rocks`.
