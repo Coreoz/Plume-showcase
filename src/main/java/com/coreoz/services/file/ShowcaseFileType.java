@@ -5,7 +5,7 @@ import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.dsl.StringPath;
 
 public enum ShowcaseFileType implements FileTypeDatabase {
-    // ENUM(QUserFile.userFile, QUserFile.userFile.fileUniqueName)
+    // could be ENUM(QUserFile.userFile, QUserFile.userFile.fileUniqueName)
     ENUM(null, null)
     ;
 

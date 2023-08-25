@@ -50,14 +50,16 @@ public class FileUploadWs {
     ) {
         Validators.checkRequired("fileMetadata", fileMetadata);
         Validators.checkRequired("file", fileData);
-        FileUploadData fileUploadMetadata = FileUploadValidator.from(fileMetadata, fileData, this.fileMimeTypeDetector)
+        FileUploadData fileUploadMetadata = FileUploadValidator.from(
+                fileMetadata,
+                fileData,
+                this.fileMimeTypeDetector
+            )
             .fileMaxSize(2_000_000)
             .fileNameAllowEmpty()
             .fileNameMaxLength(255)
             .fileExtensionAllowEmpty()
-            .fileExtensions(Set.of("hprof"))
-            /*.fileTypeNotEmpty()
-            .mimeTypes(Set.of("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel"))*/
+            .fileExtensions(Set.of("xslx"))
             .finish();
         return Response.ok(
                 this.fileUploadWebJerseyService.add(

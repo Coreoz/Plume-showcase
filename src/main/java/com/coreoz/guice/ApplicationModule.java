@@ -14,9 +14,9 @@ import com.coreoz.plume.file.guice.GuiceFileDownloadModule;
 import com.coreoz.plume.file.guice.GuiceFileMetadataDatabaseModule;
 import com.coreoz.plume.file.guice.GuiceFileModule;
 import com.coreoz.plume.file.guice.GuiceFileStorageDatabaseModule;
-import com.coreoz.plume.jersey.guice.GuiceJacksonModule;
 import com.coreoz.plume.scheduler.guice.GuiceSchedulerModule;
 import com.coreoz.services.file.ShowCaseFileTypesProvider;
+import com.coreoz.plume.jersey.monitoring.guice.GuiceJacksonWithMetricsModule;
 import com.coreoz.webservices.admin.permissions.ProjectAdminPermissionService;
 import com.google.inject.AbstractModule;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -29,7 +29,7 @@ public class ApplicationModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		install(new GuiceConfModule());
-		install(new GuiceJacksonModule());
+		install(new GuiceJacksonWithMetricsModule());
 		install(new GuiceQuerydslModule());
 		// admin module
 		install(new GuiceAdminWsModule());

@@ -24,7 +24,6 @@ import javax.ws.rs.core.MediaType;
 @PublicApi
 @Singleton
 public class ExampleWs {
-
 	private final ConfigurationService configurationService;
 
 	@Inject
@@ -38,5 +37,4 @@ public class ExampleWs {
 	public Test test(@Parameter(required = true) @PathParam("name") String name) {
 		return new Test("hello " + name + "\n" + configurationService.hello());
 	}
-
 }
