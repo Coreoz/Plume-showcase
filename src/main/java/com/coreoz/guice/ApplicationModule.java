@@ -1,9 +1,5 @@
 package com.coreoz.guice;
 
-import com.coreoz.plume.jersey.monitoring.guice.GuiceJacksonWithMetricsModule;
-import com.coreoz.plume.scheduler.guice.GuiceSchedulerModule;
-import org.glassfish.jersey.server.ResourceConfig;
-
 import com.coreoz.jersey.JerseyConfigProvider;
 import com.coreoz.plume.admin.guice.GuiceAdminWsModule;
 import com.coreoz.plume.admin.services.permissions.AdminPermissionService;
@@ -13,9 +9,11 @@ import com.coreoz.plume.admin.websession.WebSessionSigner;
 import com.coreoz.plume.conf.guice.GuiceConfModule;
 import com.coreoz.plume.db.guice.DataSourceModule;
 import com.coreoz.plume.db.querydsl.guice.GuiceQuerydslModule;
-import com.coreoz.plume.jersey.guice.GuiceJacksonModule;
+import com.coreoz.plume.jersey.monitoring.guice.GuiceJacksonWithMetricsModule;
+import com.coreoz.plume.scheduler.guice.GuiceSchedulerModule;
 import com.coreoz.webservices.admin.permissions.ProjectAdminPermissionService;
 import com.google.inject.AbstractModule;
+import org.glassfish.jersey.server.ResourceConfig;
 
 /**
  * Group the Guice modules to install in the application
