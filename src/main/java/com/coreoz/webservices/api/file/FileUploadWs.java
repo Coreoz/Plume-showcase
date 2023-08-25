@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response;
 import java.io.InputStream;
 import java.util.Set;
 
-@Path("/admin/files")
+@Path("/files")
 @Tag(name = "Files", description = "Upload files")
 @Consumes({MediaType.MULTIPART_FORM_DATA})
 @Produces(MediaType.APPLICATION_JSON)
@@ -75,7 +75,7 @@ public class FileUploadWs {
      * Example of webservice that only accepts Excel files
      */
     @POST
-    @Path("/statistics")
+    @Path("/reports")
     @Operation(description = "Upload a file")
     public Response uploadExcelFile(
         @Context ContainerRequestContext context,
