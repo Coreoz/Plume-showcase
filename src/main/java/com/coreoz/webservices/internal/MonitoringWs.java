@@ -23,7 +23,7 @@ import com.coreoz.plume.jersey.monitoring.utils.metrics.MetricsCheckBuilder;
 import com.coreoz.plume.jersey.security.basic.BasicAuthenticator;
 import com.coreoz.plume.jersey.security.permission.PublicApi;
 
-@Path("/monitor")
+@Path("/monitoring")
 // Authentication is done directly by the web service without any annotation
 @PublicApi
 @Produces(MediaType.APPLICATION_JSON)

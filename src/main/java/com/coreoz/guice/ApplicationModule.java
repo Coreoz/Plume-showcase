@@ -1,5 +1,6 @@
 package com.coreoz.guice;
 
+import com.coreoz.plume.jersey.monitoring.guice.GuiceJacksonWithMetricsModule;
 import com.coreoz.plume.scheduler.guice.GuiceSchedulerModule;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -24,7 +25,7 @@ public class ApplicationModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		install(new GuiceConfModule());
-		install(new GuiceJacksonModule());
+		install(new GuiceJacksonWithMetricsModule());
 		install(new GuiceQuerydslModule());
 		// admin module
 		install(new GuiceAdminWsModule());
