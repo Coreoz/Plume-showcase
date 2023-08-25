@@ -4,7 +4,6 @@ import com.coreoz.plume.file.FileUploadWebJerseyService;
 import com.coreoz.plume.file.services.mimetype.FileMimeTypeDetector;
 import com.coreoz.plume.file.validator.FileUploadData;
 import com.coreoz.plume.file.validator.FileUploadValidator;
-import com.coreoz.plume.jersey.errors.Validators;
 import com.coreoz.plume.jersey.security.permission.PublicApi;
 import com.coreoz.services.file.ShowcaseFileType;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,15 +40,17 @@ public class FileUploadWs {
         this.fileMimeTypeDetector = fileMimeTypeDetector;
     }
 
+    /**
+     * Example of webservice that only accepts JPEG files
+     */
     @POST
+    @Path("/pictures")
     @Operation(description = "Upload a file")
-    public Response upload(
+    public Response uploadPicture(
         @Context ContainerRequestContext context,
         @FormDataParam("file") FormDataBodyPart fileMetadata,
         @FormDataParam("file") InputStream fileData
     ) {
-        Validators.checkRequired("fileMetadata", fileMetadata);
-        Validators.checkRequired("file", fileData);
         FileUploadData fileUploadMetadata = FileUploadValidator.from(
                 fileMetadata,
                 fileData,
@@ -59,11 +60,45 @@ public class FileUploadWs {
             .fileNameAllowEmpty()
             .fileNameMaxLength(255)
             .fileExtensionAllowEmpty()
-            .fileExtensions(Set.of("xslx"))
+            .fileExtensions(Set.of("jpg"))
             .finish();
         return Response.ok(
                 this.fileUploadWebJerseyService.add(
-                    ShowcaseFileType.ENUM,
+                    ShowcaseFileType.PICTURE,
+                    fileUploadMetadata
+                )
+            )
+            .build();
+    }
+
+    /**
+     * Example of webservice that only accepts Excel files
+     */
+    @POST
+    @Path("/statistics")
+    @Operation(description = "Upload a file")
+    public Response uploadExcelFile(
+        @Context ContainerRequestContext context,
+        @FormDataParam("file") FormDataBodyPart fileMetadata,
+        @FormDataParam("file") InputStream fileData
+    ) {
+        FileUploadData fileUploadMetadata = FileUploadValidator.from(
+                fileMetadata,
+                fileData,
+                this.fileMimeTypeDetector
+            )
+            .fileMaxSize(2_000_000)
+            .fileNameAllowEmpty()
+            .fileNameMaxLength(255)
+            .fileTypeNotEmpty()
+            .mimeTypes(Set.of(
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "application/vnd.ms-excel"
+            ))
+            .finish();
+        return Response.ok(
+                this.fileUploadWebJerseyService.add(
+                    ShowcaseFileType.EXCEL,
                     fileUploadMetadata
                 )
             )

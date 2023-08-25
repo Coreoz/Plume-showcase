@@ -57,7 +57,7 @@ public class JerseyConfigProvider implements Provider<ResourceConfig> {
 		config.register(AdminSecurityFeature.class);
 		// to debug web-service requests
 		// register(LoggingFeature.class);
-		// To use Multipart
+		// To use Multipart for file upload
 		config.register(MultiPartFeature.class);
 
 		// java 8

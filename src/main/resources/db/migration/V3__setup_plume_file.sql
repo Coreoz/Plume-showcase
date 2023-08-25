@@ -5,7 +5,7 @@ CREATE TABLE `PLM_FILE`
     `mime_type`          VARCHAR(255)   NULL,
     `file_size`          DECIMAL(19, 0) NULL,
     `file_original_name` VARCHAR(255)   NULL,
-    `file_extension`     VARCHAR(10)    NULL,
+    `file_extension`     VARCHAR(10)     NULL,
     `checksum`           VARCHAR(255)   NULL,
     `creation_date`      TIMESTAMP      NOT NULL,
     PRIMARY KEY (`unique_name`)
@@ -15,8 +15,8 @@ CREATE TABLE `PLM_FILE`
 
 CREATE TABLE `PLM_FILE_DATA`
 (
-    `unique_name` VARCHAR(255) NOT NULL,
-    `data`        BLOB         NOT NULL,
+    `unique_name` VARCHAR(255) NOT NULL PRIMARY KEY,
+    `data`        MEDIUMBLOB   NOT NULL,
     FOREIGN KEY (unique_name) REFERENCES PLM_FILE (unique_name)
 )
     DEFAULT CHARSET = utf8;
