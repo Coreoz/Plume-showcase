@@ -10,7 +10,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.coreoz.db.InitializeDatabase;
+import com.coreoz.db.DatabaseInitializer;
 import com.coreoz.guice.ApplicationModule;
 import com.coreoz.jersey.GrizzlySetup;
 import com.coreoz.plume.jersey.guice.JerseyGuiceFeature;
@@ -36,7 +36,7 @@ public class WebApplication {
 			Injector injector = Guice.createInjector(Stage.PRODUCTION, new ApplicationModule());
 
 			// initialize database
-			injector.getInstance(InitializeDatabase.class).setup();
+			injector.getInstance(DatabaseInitializer.class).setup();
 
 			// schedule jobs
 			// configure logApi
