@@ -59,8 +59,7 @@ public class FileUploadWs {
             .fileMaxSize(2_000_000)
             .fileNameAllowEmpty()
             .fileNameMaxLength(255)
-            .fileExtensionAllowEmpty()
-            .fileExtensions(Set.of("jpg"))
+            .fileImage()
             .finish();
         return Response.ok(
                 this.fileUploadWebJerseyService.add(
@@ -90,11 +89,14 @@ public class FileUploadWs {
             .fileMaxSize(2_000_000)
             .fileNameAllowEmpty()
             .fileNameMaxLength(255)
-            .fileTypeNotEmpty()
-            .mimeTypes(Set.of(
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                "application/vnd.ms-excel"
-            ))
+            .fileExtensionNotEmpty()
+            .fileExtensions(Set.of("xls", "xlsx"))
+            // Or mime type
+            //.fileTypeNotEmpty()
+            //.mimeTypes(Set.of(
+            //    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            //    "application/vnd.ms-excel"
+            //))
             .finish();
         return Response.ok(
                 this.fileUploadWebJerseyService.add(

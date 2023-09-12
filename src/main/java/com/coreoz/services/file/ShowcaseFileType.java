@@ -1,13 +1,13 @@
 package com.coreoz.services.file;
 
+import com.coreoz.db.generated.QUserFile;
 import com.coreoz.plume.file.filetype.FileTypeDatabase;
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.dsl.StringPath;
 
 public enum ShowcaseFileType implements FileTypeDatabase {
-    // could be SAMPLE(QUserFile.userFile, QUserFile.userFile.fileUniqueName)
-    PICTURE(null, null),
-    EXCEL(null, null),
+    PICTURE(QUserFile.userFile, QUserFile.userFile.pictureUniqueName),
+    EXCEL(QUserFile.userFile, QUserFile.userFile.excelUniqueName),
     ;
 
     private final EntityPath<?> fileEntity;
