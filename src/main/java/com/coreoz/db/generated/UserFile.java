@@ -10,10 +10,10 @@ import com.querydsl.sql.Column;
 @Generated("com.coreoz.plume.db.querydsl.generation.IdBeanSerializer")
 public class UserFile {
 
-    @Column("EXCEL_UNIQUE_NAME")
+    @Column("FILE_EXCEL_FILENAME")
     private String excelUniqueName;
 
-    @Column("PICTURE_UNIQUE_NAME")
+    @Column("FILE_PICTURE_FILENAME")
     private String pictureUniqueName;
 
     @JsonSerialize(using=com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)

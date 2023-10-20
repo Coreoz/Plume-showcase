@@ -23,11 +23,11 @@ CREATE TABLE `PLM_FILE_DATA`
 CREATE TABLE `SWC_USER_FILE`
 (
     `user_id`          bigint(20) NOT NULL,
-    `picture_unique_name` VARCHAR(255) NOT NULL,
-    `excel_unique_name` VARCHAR(255) NOT NULL,
+    `file_picture_filename` VARCHAR(255) NOT NULL,
+    `file_excel_filename` VARCHAR(255) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES PLM_USER (id),
-    FOREIGN KEY (picture_unique_name) REFERENCES PLM_FILE (unique_name),
-    FOREIGN KEY (excel_unique_name) REFERENCES PLM_FILE (unique_name)
+    FOREIGN KEY (file_picture_filename) REFERENCES PLM_FILE (unique_name),
+    FOREIGN KEY (file_excel_filename) REFERENCES PLM_FILE (unique_name)
 ) DEFAULT CHARSET = utf8;
 
 -- DATA EXAMPLE

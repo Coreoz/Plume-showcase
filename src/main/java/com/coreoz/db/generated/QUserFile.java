@@ -62,8 +62,8 @@ public class QUserFile extends com.querydsl.sql.RelationalPathBase<UserFile> {
     }
 
     public void addMetadata() {
-        addMetadata(excelUniqueName, ColumnMetadata.named("EXCEL_UNIQUE_NAME").withIndex(3).ofType(Types.VARCHAR).withSize(255).notNull());
-        addMetadata(pictureUniqueName, ColumnMetadata.named("PICTURE_UNIQUE_NAME").withIndex(2).ofType(Types.VARCHAR).withSize(255).notNull());
+        addMetadata(excelUniqueName, ColumnMetadata.named("FILE_EXCEL_FILENAME").withIndex(3).ofType(Types.VARCHAR).withSize(255).notNull());
+        addMetadata(pictureUniqueName, ColumnMetadata.named("FILE_PICTURE_FILENAME").withIndex(2).ofType(Types.VARCHAR).withSize(255).notNull());
         addMetadata(userId, ColumnMetadata.named("USER_ID").withIndex(1).ofType(Types.BIGINT).withSize(64).notNull());
     }
 
