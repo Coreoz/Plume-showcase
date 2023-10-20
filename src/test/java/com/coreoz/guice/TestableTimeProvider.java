@@ -13,10 +13,10 @@ import java.time.ZoneId;
  * This works only for code that relies on the {@link TimeProvider}
  */
 @Singleton
-public class TimeProviderForTest implements TimeProvider {
+public class TestableTimeProvider implements TimeProvider {
     private Clock clock;
 
-    public TimeProviderForTest() {
+    public TestableTimeProvider() {
         this.clock = Clock.systemDefaultZone();
     }
 

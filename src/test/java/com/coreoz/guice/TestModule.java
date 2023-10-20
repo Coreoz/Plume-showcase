@@ -17,7 +17,7 @@ public class TestModule extends AbstractModule {
         install(Modules.override(new ApplicationModule()).with(new AbstractModule() {
             @Override
             protected void configure() {
-                bind(TimeProvider.class).to(TimeProviderForTest.class);
+                bind(TimeProvider.class).to(TestableTimeProvider.class);
             }
         }));
         install(new GuiceDbTestModule());
