@@ -14,28 +14,25 @@ import javax.ws.rs.core.MediaType;
 
 import com.coreoz.plume.jersey.security.basic.BasicAuthenticator;
 import com.coreoz.plume.jersey.security.permission.PublicApi;
-import com.coreoz.services.configuration.ConfigurationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.swagger.v3.core.util.Yaml;
 import io.swagger.v3.jaxrs2.integration.JaxrsOpenApiContextBuilder;
-import io.swagger.v3.oas.integration.OpenApiConfigurationException;
 import io.swagger.v3.oas.integration.SwaggerConfiguration;
 import io.swagger.v3.oas.integration.api.OpenApiContext;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.servers.Server;
-import lombok.SneakyThrows;
 
 @Path("/swagger")
 @Singleton
 @PublicApi
 public class SwaggerWs {
-
 	private final String swaggerDefinition;
 	private final BasicAuthenticator<String> basicAuthenticator;
 
 	@Inject
-	public SwaggerWs(ConfigurationService configurationService) throws OpenApiConfigurationException {
+	public SwaggerWs(InternalApiAuthenticator apiAuthenticator) throws Exception {
+		// Basic configuration
 		SwaggerConfiguration openApiConfig = new SwaggerConfiguration()
 			.resourcePackages(Set.of("com.coreoz.webservices.api"))
 			.sortOutput(true)
@@ -45,24 +42,19 @@ public class SwaggerWs {
 					.description("API plume-showcase")
 			)));
 
+		// Generation of the OpenApi object
 		OpenApiContext context = new JaxrsOpenApiContextBuilder<>()
 			.openApiConfiguration(openApiConfig)
 			.buildContext(true);
+		// the OpenAPI object can be changed to add security definition
+		// or to alter the generated mapping
 		OpenAPI openApi = context.read();
 
 		// serialization of the Swagger definition
-		try {
-			this.swaggerDefinition = Yaml.mapper().writeValueAsString(openApi);
-		} catch (JsonProcessingException e) {
-			throw new RuntimeException(e);
-		}
+		this.swaggerDefinition = Yaml.mapper().writeValueAsString(openApi);
 
 		// require authentication to access the API documentation
-		this.basicAuthenticator = BasicAuthenticator.fromSingleCredentials(
-			configurationService.swaggerAccessUsername(),
-			configurationService.swaggerAccessPassword(),
-			"API plume-showcase"
-		);
+		this.basicAuthenticator = apiAuthenticator.get();
 	}
 
 	@Produces(MediaType.APPLICATION_JSON)
@@ -72,6 +64,4 @@ public class SwaggerWs {
 
 		return swaggerDefinition;
 	}
-
 }
-
