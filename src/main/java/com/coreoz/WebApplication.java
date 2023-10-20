@@ -63,20 +63,20 @@ public class WebApplication {
 		}
 	}
 
-
 	private static void addShutDownListener(HttpServer httpServer, Scheduler scheduler) {
 		Runtime.getRuntime().addShutdownHook(new Thread(
 			() -> {
 				logger.info("Stopping signal received, shutting down server and scheduler...");
 				GrizzlyFuture<HttpServer> grizzlyServerShutdownFuture = httpServer.shutdown(GRACEFUL_SHUTDOWN_TIMEOUT.toSeconds(), TimeUnit.SECONDS);
-					try {
-						logger.info("Waiting for server to shut down... Shutdown timeout is {} seconds", GRACEFUL_SHUTDOWN_TIMEOUT.toSeconds());
-						scheduler.gracefullyShutdown(GRACEFUL_SHUTDOWN_TIMEOUT);
-						grizzlyServerShutdownFuture.get();
-					} catch(Throwable e) {
-						logger.error("Error while shutting down server.", e);
-					}
-				logger.info("Server and scheduler stopped.");
+                try {
+                    logger.info("Waiting for server to shut down... Shutdown timeout is {} seconds", GRACEFUL_SHUTDOWN_TIMEOUT.toSeconds());
+                    scheduler.gracefullyShutdown(GRACEFUL_SHUTDOWN_TIMEOUT);
+                    grizzlyServerShutdownFuture.get();
+                    logger.info("Server and scheduler stopped.");
+                } catch(Exception e) {
+                    logger.error("Error while shutting down server.", e);
+                    Thread.currentThread().interrupt();
+                }
 			},
 			"shutdownHook"
 		));
