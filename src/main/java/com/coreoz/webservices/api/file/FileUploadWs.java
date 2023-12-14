@@ -60,6 +60,7 @@ public class FileUploadWs {
             .fileNameAllowEmpty()
             .fileNameMaxLength(255)
             .fileImage()
+            .keepOriginalFileName()
             .finish();
         return Response.ok(
                 this.fileUploadWebJerseyService.add(
@@ -97,6 +98,7 @@ public class FileUploadWs {
             //    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             //    "application/vnd.ms-excel"
             //))
+            .sanitizeFileName()
             .finish();
         return Response.ok(
                 this.fileUploadWebJerseyService.add(
