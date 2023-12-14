@@ -10,12 +10,12 @@ import org.flywaydb.core.Flyway;
  * Initialize the H2 database with SQL scripts placed in src/main/resources/db/migration
  */
 @Singleton
-public class InitializeDatabase {
+public class DatabaseInitializer {
 
 	private final DataSource dataSource;
 
 	@Inject
-	public InitializeDatabase(DataSource dataSource) {
+	public DatabaseInitializer(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 
@@ -27,5 +27,4 @@ public class InitializeDatabase {
 			.load()
 			.migrate();
 	}
-
 }

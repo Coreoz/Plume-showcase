@@ -22,14 +22,16 @@ import com.querydsl.sql.types.JSR310LocalDateType;
 import com.querydsl.sql.types.JSR310LocalTimeType;
 import com.querydsl.sql.types.JSR310ZonedDateTimeType;
 import com.querydsl.sql.types.Type;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Generate Querydsl classes for the database layer.
  *
  * Run the {@link #main(String...)} method from your IDE to regenerate Querydsl classes.
  */
+@Slf4j
 public class QuerydslGenerator {
-
 	private static final String TABLES_PREFIX = "SWC_";
 
 	public static void main(String... args) {
@@ -77,17 +79,13 @@ public class QuerydslGenerator {
 			try {
 				exporter.export(connection.getMetaData());
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error("Querydsl database objects generation failed", e);
 			}
 		});
 	}
 
+    @SneakyThrows
 	private static Type<?> classType(Class<?> classType) {
-		try {
-			return (Type<?>) classType.getConstructor().newInstance();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+        return (Type<?>) classType.getConstructor().newInstance();
 	}
-
 }
