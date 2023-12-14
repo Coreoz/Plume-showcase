@@ -9,8 +9,14 @@ import com.coreoz.plume.admin.websession.WebSessionSigner;
 import com.coreoz.plume.conf.guice.GuiceConfModule;
 import com.coreoz.plume.db.guice.DataSourceModule;
 import com.coreoz.plume.db.querydsl.guice.GuiceQuerydslModule;
-import com.coreoz.plume.jersey.monitoring.guice.GuiceJacksonWithMetricsModule;
+import com.coreoz.plume.file.filetype.FileTypesProvider;
+import com.coreoz.plume.file.guice.GuiceFileDownloadModule;
+import com.coreoz.plume.file.guice.GuiceFileMetadataDatabaseModule;
+import com.coreoz.plume.file.guice.GuiceFileModule;
+import com.coreoz.plume.file.guice.GuiceFileStorageDatabaseModule;
 import com.coreoz.plume.scheduler.guice.GuiceSchedulerModule;
+import com.coreoz.services.file.ShowCaseFileTypesProvider;
+import com.coreoz.plume.jersey.monitoring.guice.GuiceJacksonWithMetricsModule;
 import com.coreoz.webservices.admin.permissions.ProjectAdminPermissionService;
 import com.google.inject.AbstractModule;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -32,6 +38,13 @@ public class ApplicationModule extends AbstractModule {
 		bind(AdminPermissionService.class).to(ProjectAdminPermissionService.class);
 		// API log configuration
 		install(new GuiceSchedulerModule());
+
+		// Plume File
+		install(new GuiceFileMetadataDatabaseModule());
+		install(new GuiceFileStorageDatabaseModule());
+		install(new GuiceFileDownloadModule());
+		install(new GuiceFileModule());
+		bind(FileTypesProvider.class).to(ShowCaseFileTypesProvider.class);
 
 		// database setup for the demo
 		install(new DataSourceModule());

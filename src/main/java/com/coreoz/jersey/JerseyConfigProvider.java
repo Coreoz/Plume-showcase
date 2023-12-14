@@ -5,6 +5,7 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.process.internal.RequestScoped;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -36,6 +37,8 @@ public class JerseyConfigProvider implements Provider<ResourceConfig> {
 		config.packages("com.coreoz.webservices");
 		// admin web-services
 		config.packages("com.coreoz.plume.admin.webservices");
+		// plume file
+		config.packages("com.coreoz.plume.file.webservices");
 		// enable to fetch the current user as a web-service parameter
 		config.register(new AbstractBinder() {
 			@Override
@@ -54,6 +57,8 @@ public class JerseyConfigProvider implements Provider<ResourceConfig> {
 		config.register(AdminSecurityFeature.class);
 		// to debug web-service requests
 		// register(LoggingFeature.class);
+		// To use Multipart for file upload
+		config.register(MultiPartFeature.class);
 
 		// java 8
 		config.register(TimeParamProvider.class);

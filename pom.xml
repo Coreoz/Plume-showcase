@@ -15,6 +15,7 @@
 		<maven.compiler.target>17</maven.compiler.target>
 
 		<plume-dependencies.version>4.3.4</plume-dependencies.version>
+		<plume-file.version>3.1.0</plume-file.version>
 	</properties>
 
 	<build>
@@ -165,6 +166,32 @@
 		<dependency>
 			<groupId>com.coreoz</groupId>
 			<artifactId>plume-admin-api-log</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.coreoz</groupId>
+			<artifactId>plume-file-core</artifactId>
+			<version>${plume-file.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.coreoz</groupId>
+			<artifactId>plume-file-metadata-database</artifactId>
+			<version>${plume-file.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.coreoz</groupId>
+			<artifactId>plume-file-storage-database</artifactId>
+			<version>${plume-file.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.coreoz</groupId>
+			<artifactId>plume-file-web-download-jersey</artifactId>
+			<version>${plume-file.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.coreoz</groupId>
+			<artifactId>plume-file-web-upload-jersey</artifactId>
+			<version>${plume-file.version}</version>
 		</dependency>
 
 		<!-- unit testing -->

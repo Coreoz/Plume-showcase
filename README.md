@@ -44,3 +44,13 @@ Monitoring
 - <http://localhost:8080/monitoring/metrics>
 
 There is a basic authentication for security, the credentials are: `plume//rocks`.
+
+File
+----
+[Plume File](https://github.com/Coreoz/Plume-file) is available through the library API:
+- <http://localhost:8080/files/{file-unique-nama}>
+
+2 files upload endpoints examples were added in FileUploadWs:
+- <http://localhost:8080/files/pictures> that only accepts png files
+- <http://localhost:8080/files/reports> that only accept Excel files
+

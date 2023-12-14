@@ -4,9 +4,12 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.Locale;
 
+import com.coreoz.plume.admin.db.generated.AdminUser;
 import com.coreoz.plume.conf.guice.GuiceConfModule;
 import com.coreoz.plume.db.querydsl.generation.IdBeanSerializer;
 import com.coreoz.plume.db.transaction.TransactionManager;
+import com.coreoz.plume.file.db.beans.FileDataQueryDsl;
+import com.coreoz.plume.file.db.beans.FileMetadataQuerydsl;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.querydsl.codegen.EntityType;
@@ -25,11 +28,11 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Generate Querydsl classes for the database layer.
  *
- * Run the {@link #main()} method from your IDE to regenerate Querydsl classes.
+ * Run the {@link #main(String...)} method from your IDE to regenerate Querydsl classes.
  */
 @Slf4j
 public class QuerydslGenerator {
-	private static final String TABLES_PREFIX = "plm_";
+	private static final String TABLES_PREFIX = "SWC_";
 
 	public static void main(String... args) {
 		Configuration configuration = new Configuration(SQLTemplates.DEFAULT);
@@ -49,9 +52,15 @@ public class QuerydslGenerator {
 			@Override
 			public String getClassName(String tableName) {
 				// uncomment if you are using plume file
-//				if("plm_file".equalsIgnoreCase(tableName)) {
-//					return FileEntityQuerydsl.class.getName();
-//				}
+				if("plm_file_data".equalsIgnoreCase(tableName)) {
+					return FileDataQueryDsl.class.getName();
+				}
+				if("plm_file".equalsIgnoreCase(tableName)) {
+					return FileMetadataQuerydsl.class.getName();
+				}
+				if("plm_user".equalsIgnoreCase(tableName)) {
+					return AdminUser.class.getName();
+				}
 				return super.getClassName(tableName.substring(TABLES_PREFIX.length()));
 			}
 
