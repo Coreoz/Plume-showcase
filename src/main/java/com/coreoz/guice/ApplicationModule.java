@@ -1,5 +1,7 @@
 package com.coreoz.guice;
 
+import com.coreoz.db.HikariMetricsDataSourceProvider;
+import com.coreoz.db.TransactionManagerQuerydslProvider;
 import com.coreoz.jersey.JerseyConfigProvider;
 import com.coreoz.plume.admin.guice.GuiceAdminWsModule;
 import com.coreoz.plume.admin.services.permissions.AdminPermissionService;
@@ -9,6 +11,8 @@ import com.coreoz.plume.admin.websession.WebSessionSigner;
 import com.coreoz.plume.conf.guice.GuiceConfModule;
 import com.coreoz.plume.db.guice.DataSourceModule;
 import com.coreoz.plume.db.querydsl.guice.GuiceQuerydslModule;
+import com.coreoz.plume.db.querydsl.transaction.TransactionManagerQuerydsl;
+import com.coreoz.plume.db.transaction.TransactionManager;
 import com.coreoz.plume.file.filetype.FileTypesProvider;
 import com.coreoz.plume.file.guice.GuiceFileDownloadModule;
 import com.coreoz.plume.file.guice.GuiceFileMetadataDatabaseModule;
@@ -21,6 +25,8 @@ import com.coreoz.webservices.admin.permissions.ProjectAdminPermissionService;
 import com.google.inject.AbstractModule;
 import org.glassfish.jersey.server.ResourceConfig;
 
+import javax.sql.DataSource;
+
 /**
  * Group the Guice modules to install in the application
  */
@@ -30,7 +36,7 @@ public class ApplicationModule extends AbstractModule {
 	protected void configure() {
 		install(new GuiceConfModule());
 		install(new GuiceJacksonWithMetricsModule());
-		install(new GuiceQuerydslModule());
+		// install(new GuiceQuerydslModule());
 		// admin module
 		install(new GuiceAdminWsModule());
 		bind(WebSessionSigner.class).toProvider(JwtSessionSignerProvider.class);
@@ -47,7 +53,10 @@ public class ApplicationModule extends AbstractModule {
 		bind(FileTypesProvider.class).to(ShowCaseFileTypesProvider.class);
 
 		// database setup for the demo
-		install(new DataSourceModule());
+		// install(new DataSourceModule());
+        bind(TransactionManagerQuerydsl.class).toProvider(TransactionManagerQuerydslProvider.class);
+        bind(TransactionManager.class).toProvider(TransactionManagerQuerydslProvider.class);
+        bind(DataSource.class).toProvider(HikariMetricsDataSourceProvider.class);
 
 		// prepare Jersey configuration
 		bind(ResourceConfig.class).toProvider(JerseyConfigProvider.class);
