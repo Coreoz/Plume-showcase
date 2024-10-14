@@ -5,8 +5,8 @@ import com.coreoz.plume.admin.services.permission.SystemAdminPermissions;
 import com.coreoz.plume.admin.services.permissions.AdminPermissionService;
 import com.coreoz.plume.admin.services.permissions.AdminPermissions;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import java.util.Set;
 
 @Singleton

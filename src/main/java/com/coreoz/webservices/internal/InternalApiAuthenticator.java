@@ -1,7 +1,7 @@
 package com.coreoz.webservices.internal;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import com.coreoz.plume.jersey.security.basic.BasicAuthenticator;
 import com.coreoz.services.configuration.ConfigurationService;

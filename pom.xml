@@ -14,8 +14,7 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 
-		<plume-dependencies.version>4.3.4</plume-dependencies.version>
-		<plume-file.version>3.1.0</plume-file.version>
+		<plume-dependencies.version>4.3.5-SNAPSHOT</plume-dependencies.version>
 	</properties>
 
 	<build>
@@ -130,18 +129,10 @@
 			<artifactId>jersey-container-grizzly2-http</artifactId>
 		</dependency>
 
-		<!-- to cool down eclipse  -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-
 		<!-- swagger -->
 		<dependency>
 			<groupId>io.swagger.core.v3</groupId>
-			<artifactId>swagger-jaxrs2</artifactId>
+			<artifactId>swagger-jaxrs2-jakarta</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -171,27 +162,22 @@
 		<dependency>
 			<groupId>com.coreoz</groupId>
 			<artifactId>plume-file-core</artifactId>
-			<version>${plume-file.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.coreoz</groupId>
 			<artifactId>plume-file-metadata-database</artifactId>
-			<version>${plume-file.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.coreoz</groupId>
 			<artifactId>plume-file-storage-database</artifactId>
-			<version>${plume-file.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.coreoz</groupId>
 			<artifactId>plume-file-web-download-jersey</artifactId>
-			<version>${plume-file.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.coreoz</groupId>
 			<artifactId>plume-file-web-upload-jersey</artifactId>
-			<version>${plume-file.version}</version>
 		</dependency>
 
 		<!-- unit testing -->
