@@ -7,21 +7,20 @@ import com.coreoz.plume.file.validator.FileUploadValidator;
 import com.coreoz.plume.jersey.security.permission.PublicApi;
 import com.coreoz.services.file.ShowcaseFileType;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.glassfish.jersey.media.multipart.FormDataBodyPart;
-import org.glassfish.jersey.media.multipart.FormDataParam;
-
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import java.io.InputStream;
+
 import java.util.Set;
 
 @Path("/files")
@@ -46,14 +45,11 @@ public class FileUploadWs {
     @POST
     @Path("/pictures")
     @Operation(description = "Upload a file")
-    public Response uploadPicture(
-        @Context ContainerRequestContext context,
-        @FormDataParam("file") FormDataBodyPart fileMetadata,
-        @FormDataParam("file") InputStream fileData
-    ) {
+    @RequestBody(content = @Content(schema = @Schema(implementation = FileUploadRequest.class)))
+    public Response uploadPicture(@BeanParam FileUploadRequest request) {
         FileUploadData fileUploadMetadata = FileUploadValidator.from(
-                fileMetadata,
-                fileData,
+                request.getFileMetadata(),
+                request.getFileData(),
                 this.fileMimeTypeDetector
             )
             .fileMaxSize(2_000_000)
@@ -77,14 +73,11 @@ public class FileUploadWs {
     @POST
     @Path("/reports")
     @Operation(description = "Upload a file")
-    public Response uploadExcelFile(
-        @Context ContainerRequestContext context,
-        @FormDataParam("file") FormDataBodyPart fileMetadata,
-        @FormDataParam("file") InputStream fileData
-    ) {
+    @RequestBody(content = @Content(schema = @Schema(implementation = FileUploadRequest.class)))
+    public Response uploadExcelFile(@BeanParam FileUploadRequest request) {
         FileUploadData fileUploadMetadata = FileUploadValidator.from(
-                fileMetadata,
-                fileData,
+                request.getFileMetadata(),
+                request.getFileData(),
                 this.fileMimeTypeDetector
             )
             .fileMaxSize(2_000_000)
