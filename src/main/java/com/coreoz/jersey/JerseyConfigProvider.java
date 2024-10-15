@@ -1,14 +1,5 @@
 package com.coreoz.jersey;
 
-import jakarta.inject.Inject;
-import jakarta.inject.Provider;
-import jakarta.inject.Singleton;
-
-import org.glassfish.hk2.utilities.binding.AbstractBinder;
-import org.glassfish.jersey.media.multipart.MultiPartFeature;
-import org.glassfish.jersey.process.internal.RequestScoped;
-import org.glassfish.jersey.server.ResourceConfig;
-
 import com.coreoz.plume.admin.jersey.feature.AdminSecurityFeature;
 import com.coreoz.plume.admin.jersey.feature.RestrictToAdmin;
 import com.coreoz.plume.admin.websession.WebSessionAdmin;
@@ -19,7 +10,15 @@ import com.coreoz.plume.jersey.errors.WsResultExceptionMapper;
 import com.coreoz.plume.jersey.java8.TimeParamProvider;
 import com.coreoz.plume.jersey.security.permission.PublicApi;
 import com.coreoz.plume.jersey.security.permission.RequireExplicitAccessControlFeature;
+import com.coreoz.plume.jersey.security.size.ContentSizeLimitFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.inject.Singleton;
+import org.glassfish.hk2.utilities.binding.AbstractBinder;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import org.glassfish.jersey.process.internal.RequestScoped;
+import org.glassfish.jersey.server.ResourceConfig;
 
 /**
  * Jersey configuration
@@ -51,6 +50,8 @@ public class JerseyConfigProvider implements Provider<ResourceConfig> {
 		// filters configuration
 		// handle errors and exceptions
 		config.register(WsResultExceptionMapper.class);
+        // Limit request body size to 500kb
+        config.register(ContentSizeLimitFeature.class);
 		// require explicit access control on API
 		config.register(RequireExplicitAccessControlFeature.accessControlAnnotations(PublicApi.class, RestrictToAdmin.class));
 		// admin web-services protection with the permission system
