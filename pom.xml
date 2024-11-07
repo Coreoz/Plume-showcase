@@ -18,6 +18,7 @@
 	</properties>
 
 	<build>
+        <finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -48,20 +49,20 @@
 					</archive>
 				</configuration>
 			</plugin>
-			<!-- build a zip with all the dependencies and starting scripts -->
-			<plugin>
-				<groupId>com.google.code.play2-maven-plugin</groupId>
-				<artifactId>play2-maven-plugin</artifactId>
-				<version>1.0.0-rc5</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>dist</goal>
-						</goals>
-						<phase>package</phase>
-					</execution>
-				</executions>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.8.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 	</build>
 
