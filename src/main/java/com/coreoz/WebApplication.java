@@ -4,6 +4,7 @@ import com.coreoz.db.DatabaseInitializer;
 import com.coreoz.guice.ApplicationModule;
 import com.coreoz.jersey.GrizzlySetup;
 import com.coreoz.plume.admin.services.scheduler.LogApiScheduledJobs;
+import com.coreoz.plume.jersey.grizzly.GrizzlyThreadPoolProbe;
 import com.coreoz.plume.jersey.guice.JerseyGuiceFeature;
 import com.coreoz.wisp.Scheduler;
 import com.google.inject.Guice;
@@ -46,6 +47,7 @@ public class WebApplication {
 			// starts the server
 			HttpServer httpServer = GrizzlySetup.start(
 				jerseyResourceConfig,
+                injector.getInstance(GrizzlyThreadPoolProbe.class),
 				System.getProperty("http.port"),
 				System.getProperty("http.address")
 			);

@@ -46,9 +46,6 @@ public class ApplicationModule extends AbstractModule {
 		install(new GuiceFileModule());
 		bind(FileTypesProvider.class).to(ShowCaseFileTypesProvider.class);
 
-		// database setup for the demo
-		install(new DataSourceModule());
-
 		// prepare Jersey configuration
 		bind(ResourceConfig.class).toProvider(JerseyConfigProvider.class);
 	}

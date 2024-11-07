@@ -3,6 +3,7 @@ package com.coreoz.jersey;
 import java.io.IOException;
 import java.net.URI;
 
+import com.coreoz.plume.jersey.grizzly.GrizzlyThreadPoolProbe;
 import jakarta.ws.rs.core.UriBuilder;
 
 import org.glassfish.grizzly.http.server.CLStaticHttpHandler;
@@ -21,7 +22,7 @@ public class GrizzlySetup {
 	private static final int DEFAULT_HTTP_PORT = 8080;
 	private static final String DEFAULT_HTTP_HOST = "0.0.0.0";
 
-	public static HttpServer start(ResourceConfig jerseyResourceConfig, String httpPort, String httpHost)
+	public static HttpServer start(ResourceConfig jerseyResourceConfig, GrizzlyThreadPoolProbe grizzlyThreadPoolProbe, String httpPort, String httpHost)
 			throws IOException {
 		// replace JUL logger (used by Grizzly) by SLF4J logger
 		SLF4JBridgeHandler.removeHandlersForRootLogger();
@@ -40,7 +41,10 @@ public class GrizzlySetup {
 			false
 		);
 
-		// minimal error page to avoid leaking server information
+        // thread pool information
+        httpServer.getServerConfiguration().getMonitoringConfig().getThreadPoolConfig().addProbes(grizzlyThreadPoolProbe);
+
+        // minimal error page to avoid leaking server information
 		httpServer.getServerConfiguration().setDefaultErrorPageGenerator(new GrizzlyErrorPageHandler());
 
 		// webjars for swagger ui
