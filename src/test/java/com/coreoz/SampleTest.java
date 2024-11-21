@@ -1,7 +1,7 @@
 package com.coreoz;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * A unit test sample.
@@ -11,7 +11,7 @@ import org.junit.Test;
  * - Testing a function that does not have a lot of dependencies
  *
  * To test something that has interactions with the database, or not only one function but a chain of services,
- * integration tests are preferred. See {@link SampleIntegrationTest} for an example.
+ * integration tests are preferred. See {@link com.coreoz.integration.SampleIntegrationTest} for an example.
  *
  * Once there are other unit tests in the project, this sample should be deleted.
  */
