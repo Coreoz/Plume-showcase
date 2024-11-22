@@ -14,7 +14,7 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 
-		<plume-dependencies.version>4.3.5-SNAPSHOT</plume-dependencies.version>
+		<plume-dependencies.version>5.0.0-beta1</plume-dependencies.version>
 	</properties>
 
 	<build>
@@ -22,7 +22,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
+                <version>3.13.0</version>
 				<configuration>
 					<source>${maven.compiler.source}</source>
 					<target>${maven.compiler.target}</target>
@@ -31,7 +31,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.0.2</version>
+                <version>3.3.1</version>
 				<configuration>
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
@@ -39,7 +39,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.0.2</version>
+                <version>3.4.2</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -79,16 +79,10 @@
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
 		</dependency>
-		<!-- allow to use Guice dependency injection in Jersey controllers -->
+		<!-- allow using Guice dependency injection in Jersey controllers -->
 		<dependency>
 			<groupId>org.glassfish.hk2</groupId>
 			<artifactId>guice-bridge</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>guice</artifactId>
-					<groupId>com.google.inject</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<dependency>
