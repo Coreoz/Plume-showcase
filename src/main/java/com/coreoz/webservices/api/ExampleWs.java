@@ -1,5 +1,8 @@
 package com.coreoz.webservices.api;
 
+import com.coreoz.plume.admin.jersey.feature.RestrictToAdmin;
+import com.coreoz.plume.admin.services.permissions.AdminPermissions;
+import com.coreoz.plume.admin.websession.WebSessionAdmin;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
@@ -15,6 +18,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 
 @Path("/example")
@@ -36,5 +40,13 @@ public class ExampleWs {
 	@Operation(description = "Example web-service")
 	public Test test(@Parameter(required = true) @PathParam("name") String name) {
 		return new Test("hello " + name + "\n" + configurationService.hello());
+	}
+
+	@GET
+	@Path("/other")
+    @RestrictToAdmin(AdminPermissions.MANAGE_USERS)
+	@Operation(description = "Other Example web-service")
+	public Test test(@Context WebSessionAdmin webSessionAdmin) {
+		return new Test("hello " + webSessionAdmin.getFullName() + "\n" + configurationService.hello());
 	}
 }
