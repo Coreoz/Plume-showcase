@@ -1,0 +1,26 @@
+# Create a new session
+POST {{BASE_URL}}/api/admin/session
+Accept: */*
+Content-Type: application/json
+
+{
+    "userName": "admin",
+    "password": "admin"
+}
+
+> {%
+    client.global.set("webSessionToken",response.body.webSessionToken);
+%}
+
+###
+
+# Refresh the session
+PUT {{BASE_URL}}/api/admin/session
+Accept: */*
+Content-Type: text/plain;charset=UTF-8
+
+{{webSessionToken}}
+
+###
+
+

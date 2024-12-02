@@ -1,0 +1,7 @@
+# Response ok, but exception is thrown
+GET {{BASE_URL}}/api/example/other
+Accept: */*
+Authorization: Bearer {{webSessionToken}}
+
+###
+
