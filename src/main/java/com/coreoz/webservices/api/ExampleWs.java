@@ -15,11 +15,13 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
+import lombok.extern.slf4j.Slf4j;
 
 @Path("/example")
 @Tag(name = "example", description = "Manage exemple web-services")
@@ -27,6 +29,7 @@ import jakarta.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 @PublicApi
 @Singleton
+@Slf4j
 public class ExampleWs {
 	private final ConfigurationService configurationService;
 
@@ -48,5 +51,13 @@ public class ExampleWs {
 	@Operation(description = "Other Example web-service")
 	public Test test(@Context WebSessionAdmin webSessionAdmin) {
 		return new Test("hello " + webSessionAdmin.getFullName() + "\n" + configurationService.hello());
+	}
+
+	@POST
+	@Path("/no-answer")
+    @RestrictToAdmin(AdminPermissions.MANAGE_USERS)
+	@Operation(description = "No response")
+	public void noAnswer(@Context WebSessionAdmin webSessionAdmin) {
+		logger.info("Hello {}", webSessionAdmin.getFullName());
 	}
 }

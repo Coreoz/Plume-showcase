@@ -5,3 +5,11 @@ Authorization: Bearer {{webSessionToken}}
 
 ###
 
+# No response
+POST {{BASE_URL}}/api/example/no-answer
+Accept: */*
+Authorization: Bearer {{webSessionToken}}
+Content-Type: application/json
+
+###
+
