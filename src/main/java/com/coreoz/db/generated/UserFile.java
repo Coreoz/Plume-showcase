@@ -11,29 +11,29 @@ import com.querydsl.sql.Column;
 public class UserFile {
 
     @Column("FILE_EXCEL_FILENAME")
-    private String excelUniqueName;
+    private String fileExcelFilename;
 
     @Column("FILE_PICTURE_FILENAME")
-    private String pictureUniqueName;
+    private String filePictureFilename;
 
     @JsonSerialize(using=com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)
     @Column("USER_ID")
     private Long userId;
 
-    public String getExcelUniqueName() {
-        return excelUniqueName;
+    public String getFileExcelFilename() {
+        return fileExcelFilename;
     }
 
-    public void setExcelUniqueName(String excelUniqueName) {
-        this.excelUniqueName = excelUniqueName;
+    public void setFileExcelFilename(String fileExcelFilename) {
+        this.fileExcelFilename = fileExcelFilename;
     }
 
-    public String getPictureUniqueName() {
-        return pictureUniqueName;
+    public String getFilePictureFilename() {
+        return filePictureFilename;
     }
 
-    public void setPictureUniqueName(String pictureUniqueName) {
-        this.pictureUniqueName = pictureUniqueName;
+    public void setFilePictureFilename(String filePictureFilename) {
+        this.filePictureFilename = filePictureFilename;
     }
 
     public Long getUserId() {

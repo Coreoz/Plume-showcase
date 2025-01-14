@@ -24,17 +24,17 @@ public class QUserFile extends com.querydsl.sql.RelationalPathBase<UserFile> {
 
     public static final QUserFile userFile = new QUserFile("SWC_USER_FILE");
 
-    public final StringPath excelUniqueName = createString("excelUniqueName");
+    public final StringPath fileExcelFilename = createString("fileExcelFilename");
 
-    public final StringPath pictureUniqueName = createString("pictureUniqueName");
+    public final StringPath filePictureFilename = createString("filePictureFilename");
 
     public final NumberPath<Long> userId = createNumber("userId", Long.class);
 
     public final com.querydsl.sql.ForeignKey<com.coreoz.plume.admin.db.generated.AdminUser> constraint4 = createForeignKey(userId, "ID");
 
-    public final com.querydsl.sql.ForeignKey<com.coreoz.plume.file.db.beans.FileMetadataQuerydsl> constraint4d = createForeignKey(pictureUniqueName, "UNIQUE_NAME");
+    public final com.querydsl.sql.ForeignKey<com.coreoz.plume.file.db.beans.FileMetadataQuerydsl> constraint4d = createForeignKey(filePictureFilename, "UNIQUE_NAME");
 
-    public final com.querydsl.sql.ForeignKey<com.coreoz.plume.file.db.beans.FileMetadataQuerydsl> constraint4d0 = createForeignKey(excelUniqueName, "UNIQUE_NAME");
+    public final com.querydsl.sql.ForeignKey<com.coreoz.plume.file.db.beans.FileMetadataQuerydsl> constraint4d0 = createForeignKey(fileExcelFilename, "UNIQUE_NAME");
 
     public QUserFile(String variable) {
         super(UserFile.class, forVariable(variable), "PLUME_DEMO", "SWC_USER_FILE");
@@ -62,8 +62,8 @@ public class QUserFile extends com.querydsl.sql.RelationalPathBase<UserFile> {
     }
 
     public void addMetadata() {
-        addMetadata(excelUniqueName, ColumnMetadata.named("FILE_EXCEL_FILENAME").withIndex(3).ofType(Types.VARCHAR).withSize(255).notNull());
-        addMetadata(pictureUniqueName, ColumnMetadata.named("FILE_PICTURE_FILENAME").withIndex(2).ofType(Types.VARCHAR).withSize(255).notNull());
+        addMetadata(fileExcelFilename, ColumnMetadata.named("FILE_EXCEL_FILENAME").withIndex(3).ofType(Types.VARCHAR).withSize(255).notNull());
+        addMetadata(filePictureFilename, ColumnMetadata.named("FILE_PICTURE_FILENAME").withIndex(2).ofType(Types.VARCHAR).withSize(255).notNull());
         addMetadata(userId, ColumnMetadata.named("USER_ID").withIndex(1).ofType(Types.BIGINT).withSize(64).notNull());
     }
 

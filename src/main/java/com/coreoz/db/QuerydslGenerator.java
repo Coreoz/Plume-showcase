@@ -76,6 +76,7 @@ public class QuerydslGenerator {
 		exporter.setConfiguration(configuration);
 
 		Injector injector = Guice.createInjector(new GuiceConfModule(), new DataSourceModule());
+        injector.getInstance(DatabaseInitializer.class).setup();
 		injector.getInstance(TransactionManager.class).execute(connection -> {
 			try {
 				exporter.export(connection.getMetaData());
