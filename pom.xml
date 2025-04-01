@@ -14,7 +14,7 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 
-		<plume-dependencies.version>5.0.0-beta1</plume-dependencies.version>
+		<plume-dependencies.version>5.0.0-SNAPSHOT</plume-dependencies.version>
 	</properties>
 
 	<build>
@@ -48,7 +48,7 @@
 					</archive>
 				</configuration>
 			</plugin>
-			<!-- build a zip with all the dependencies and starting scripts -->
+            <!-- build a zip with all the dependencies and starting scripts -->
 			<plugin>
 				<groupId>com.google.code.play2-maven-plugin</groupId>
 				<artifactId>play2-maven-plugin</artifactId>
@@ -56,11 +56,15 @@
 				<executions>
 					<execution>
 						<goals>
-							<goal>dist</goal>
+							<goal>dist-exploded</goal>
 						</goals>
 						<phase>package</phase>
 					</execution>
 				</executions>
+                <configuration>
+                    <!-- Exclude guava build dependencies from runtime -->
+                    <distDependencyExcludes>com.google.code.findbugs:jsr305,com.google.errorprone:error_prone_annotations,com.google.j2objc:j2objc-annotations,org.checkerframework:checker-qual</distDependencyExcludes>
+                </configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -95,19 +99,27 @@
 			<groupId>com.coreoz</groupId>
 			<artifactId>plume-db-querydsl</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.coreoz</groupId>
-			<artifactId>plume-db-querydsl-codegen</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+        <!-- Querydsl code generation, using the provided scope to avoid compilation error in the IDE -->
+        <dependency>
+            <groupId>com.coreoz</groupId>
+            <artifactId>plume-db-querydsl-codegen</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <!-- Querydsl codegen still relies on javax.inject for now -->
+                <exclusion>
+                    <artifactId>javax.inject</artifactId>
+                    <groupId>javax.inject</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
 		<!-- jersey -->
 		<dependency>
@@ -181,6 +193,19 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+    <profiles>
+        <!-- Profile for querydsl code generation -->
+        <profile>
+            <id>querydsl-code-generation</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.coreoz</groupId>
+                    <artifactId>plume-db-querydsl-codegen</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
 	<dependencyManagement>
 		<dependencies>

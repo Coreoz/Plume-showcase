@@ -54,3 +54,20 @@ File
 - <http://localhost:8080/files/pictures> that only accepts png files
 - <http://localhost:8080/files/reports> that only accept Excel files
 
+Database
+--------
+To generate classes corresponding to the database tables,
+you can run the `com.coreoz.db.QuerydslGenerator.main()` method.
+On Intellij the Maven `querydsl-code-generation` profile must be used for that, so these steps must be followed in Intellij:
+1. Click on the Maven pane on the right
+2. In the Profiles block, select the `querydsl-code-generation` profile
+3. Update the Maven project
+4. Run the `com.coreoz.db.QuerydslGenerator.main()` method
+
+See the detailed documentations:
+- [Plume Database](https://github.com/Coreoz/Plume/tree/master/plume-db)
+- [Plume Querydsl](https://github.com/Coreoz/Plume/tree/master/plume-db-querydsl)
+- [Plume Querydsl codegen](https://github.com/Coreoz/Plume/tree/master/plume-db-querydsl-codegen)
+
+Documentation about initial database configuration is available in the [Plume Maven Archetype](https://github.com/Coreoz/Plume-archetypes/blob/master/plume-archetype-querydsl-jersey-guice-grizzly#database-configuration).
+
